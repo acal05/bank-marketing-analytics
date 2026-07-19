@@ -1,0 +1,18 @@
+# macOS
+.DS_Store
+
+# Python
+_pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# VS Code
+.vscode/
+
+# Logs
+*.log
