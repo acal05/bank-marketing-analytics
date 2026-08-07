@@ -8,6 +8,18 @@ The objective of this project is to analyze customer demographics, financial cha
 
 ---
 
+## Data Source
+
+This project uses the **Bank Marketing Dataset** from the UCI Machine Learning Repository. The dataset contains information from direct marketing campaigns conducted by a Portuguese banking institution, primarily through telephone contact.
+
+The analysis uses the `bank-full.csv` dataset, containing 45,211 customer records and information on customer demographics, financial characteristics, campaign interactions, previous campaign outcomes, and whether the customer subscribed to a term deposit.
+
+**Source:** UCI Machine Learning Repository — Bank Marketing Dataset  
+**Creators:** Sérgio Moro, Paulo Rita, and Paulo Cortez  
+**DOI:** 10.24432/C5K306
+
+---
+
 ## Business Problem
 
 How can the bank improve the efficiency of its direct marketing campaign by identifying customers who are most likely to subscribe to a term deposit?
