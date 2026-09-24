@@ -1,10 +1,12 @@
-# Bank Marketing Campaign Analysis
+# Bank Marketing Analytics & Response Prediction
 
 ## Project Overview
 
-Banks often use direct marketing campaigns to promote financial products such as term deposits. While these campaigns can reach thousands of customers, contacting every customer is costly and inefficient.
+Banks often use direct marketing campaigns to promote financial products such as term deposits. While these campaigns can reach thousands of customers, contacting every customer can be costly and inefficient.
 
-The objective of this project is to analyze customer demographics, financial characteristics, and previous marketing interactions to identify factors associated with successful term deposit subscriptions. Insights from this analysis will be used to recommend more effective customer targeting strategies and build predictive models for future marketing campaigns.
+The objective of this project is to analyze customer demographics, financial characteristics, and previous marketing interactions to identify patterns associated with successful term deposit subscriptions.
+
+The project follows an end-to-end analytics workflow that progresses from exploratory analysis and customer segmentation to SQL analysis, statistical analysis, predictive modeling, and business recommendations.
 
 ---
 
@@ -12,7 +14,7 @@ The objective of this project is to analyze customer demographics, financial cha
 
 This project uses the **Bank Marketing Dataset** from the UCI Machine Learning Repository. The dataset contains information from direct marketing campaigns conducted by a Portuguese banking institution, primarily through telephone contact.
 
-The analysis uses the `bank-full.csv` dataset, containing 45,211 customer records and information on customer demographics, financial characteristics, campaign interactions, previous campaign outcomes, and whether the customer subscribed to a term deposit.
+The analysis uses the `bank-full.csv` dataset, containing **45,211 customer records** and information on customer demographics, financial characteristics, campaign interactions, previous campaign outcomes, and whether the customer subscribed to a term deposit.
 
 **Source:** UCI Machine Learning Repository — Bank Marketing Dataset  
 **Creators:** Sérgio Moro, Paulo Rita, and Paulo Cortez  
@@ -22,109 +24,169 @@ The analysis uses the `bank-full.csv` dataset, containing 45,211 customer record
 
 ## Business Problem
 
-How can the bank improve the efficiency of its direct marketing campaign by identifying customers who are most likely to subscribe to a term deposit?
+**How can the bank improve the efficiency of its direct marketing campaigns by identifying customer and campaign characteristics associated with higher term deposit subscription rates?**
+
+The analysis focuses on translating customer and campaign data into insights that could support more informed customer targeting decisions.
 
 ---
 
 ## Dataset
 
-This project uses the **Bank Marketing Dataset**, which contains information on over 45,000 customers from a Portuguese banking institution.
-
-The dataset includes:
+The dataset contains more than 45,000 customer records and includes variables describing:
 
 - Customer demographics
-- Financial characteristics
-- Previous campaign history
-- Contact information
-- Marketing outcomes
-- Term deposit subscription status (target variable)
+- Employment and education
+- Account balances
+- Credit default status
+- Housing loan status
+- Personal loan status
+- Marketing contact methods
+- Campaign contact frequency
+- Previous marketing campaign outcomes
+- Term deposit subscription status (`y`) as the target variable
 
 ---
 
 ## Tools & Technologies
 
+### Currently Used
+
 - Python
-- Pandas
+- pandas
 - NumPy
 - Matplotlib
 - Jupyter Notebook
 - Git
 - GitHub
 
-Future phases will also include:
+### Planned for Later Phases
 
 - SQL
 - Statistical Analysis
-- Machine Learning (Scikit-learn)
+- Scikit-learn
+- Power BI
 
 ---
 
 # Project Workflow
 
-## Phase 1 — Data Preparation ✔
+## Phase 1 — Data Preparation ✅
 
-- Imported dataset
-- Inspected data structure
-- Checked data types
-- Examined missing values
-- Performed initial data cleaning
+Initial preparation and validation included:
+
+- Imported the raw dataset
+- Inspected dataset dimensions and structure
+- Reviewed data types
+- Examined missing and unknown values
+- Validated important variables
+- Reviewed the target variable
+- Prepared the dataset for exploratory analysis
 
 ---
 
-## Phase 2 — Exploratory Data Analysis ✔
+## Phase 2 — Exploratory Data Analysis ✅
 
-Completed analyses include:
+The initial exploratory analysis examines the overall characteristics of the bank's customers and marketing activity.
 
 ### Customer Characteristics
 
-- Age Distribution
+Analysis includes:
+
+- Age
 - Occupation
-- Marital Status
+- Marital status
 - Education
-- Credit Default
-- Housing Loan
-- Personal Loan
+- Credit default
+- Housing loans
+- Personal loans
+- Account balances
 
-### Marketing Campaign Variables
+### Marketing Campaign Characteristics
 
-- Contact Method
-- Contact Month
+Analysis includes:
 
-Each analysis includes:
+- Contact method
+- Contact month
+- Campaign activity
+- Term deposit subscription outcome
 
-- Variable description
-- Business question
-- Professional visualization
-- Key findings
-- Business interpretation
+The exploratory analysis establishes the overall structure and distribution of the data before comparing customer groups.
+
+---
+
+## Phase 3 — Comparative Customer Analysis ✅
+
+The comparative analysis extends the initial exploratory analysis by examining differences in term deposit subscription behavior across customer and campaign characteristics.
+
+The analysis examines:
+
+- Overall term deposit subscription rate
+- Subscription rates across occupations
+- Subscription rates across age groups
+- Account balance differences between subscribers and non-subscribers
+- Housing loan status and subscription behavior
+- Personal loan status and subscription behavior
+- Contact method and subscription behavior
+- Campaign contact frequency
+- Previous campaign outcomes
+- Multi-variable customer segmentation
+
+The purpose of this phase is to move beyond simple distributions and identify customer segments and campaign characteristics associated with different response rates.
+
+These findings are **descriptive rather than causal**. They identify patterns and relationships in historical campaign data but do not establish that any individual characteristic causes a customer to subscribe.
 
 ---
 
 ## Current Progress
 
 | Phase | Status |
-|---------|:------:|
-| Data Cleaning | ✅ Complete |
+|---|:---:|
+| Data Preparation | ✅ Complete |
 | Exploratory Data Analysis | ✅ Complete |
-| Comparative Analysis | 🚧 In Progress |
-| SQL Analysis | ⏳ Planned |
+| Comparative Customer Analysis | ✅ Complete |
+| SQL Business Analysis | 🚧 Next |
 | Statistical Analysis | ⏳ Planned |
 | Predictive Modeling | ⏳ Planned |
+| Model Evaluation | ⏳ Planned |
+| Power BI Dashboard | ⏳ Planned |
 | Business Recommendations | ⏳ Planned |
 
 ---
 
 # Key Exploratory Findings
 
-Some initial observations from the exploratory analysis include:
+Initial exploratory analysis provides important context about the bank's customer population and campaign activity.
+
+Some observations include:
 
 - Most customers do not have a history of credit default.
 - Housing loan ownership is relatively balanced across the customer base.
-- Personal loans are uncommon among customers.
+- Personal loans are less common among customers.
 - Cellular phones are the primary contact method used during marketing campaigns.
-- Marketing activity was heavily concentrated during May and remained relatively high throughout the summer before declining later in the year.
+- Marketing activity was heavily concentrated during certain months, particularly May.
+- Term deposit subscriptions represent a minority of campaign outcomes, making response rate an important metric for later analysis.
 
-These findings provide important context for later analyses but do not establish causal relationships with term deposit subscriptions.
+These observations describe the historical dataset and provide context for deeper comparative and predictive analysis.
+
+---
+
+# Comparative Analysis
+
+The comparative phase focuses on how subscription behavior differs across customer and campaign characteristics.
+
+Examples of questions investigated include:
+
+- Which occupations have higher or lower historical subscription rates?
+- How does subscription behavior vary across age groups?
+- Do subscribers and non-subscribers differ in their account balances?
+- How does housing loan status relate to subscription rates?
+- How does personal loan status relate to subscription rates?
+- How do different contact methods compare?
+- How does campaign contact frequency differ between outcomes?
+- How does previous campaign performance relate to future subscription behavior?
+- What additional patterns appear when multiple customer characteristics are considered together?
+
+This analysis creates a foundation for the SQL and predictive modeling stages of the project.
 
 ---
 
@@ -160,24 +222,91 @@ These findings provide important context for later analyses but do not establish
 
 ---
 
+## Subscription Rate by Age Group
+
+![Subscription Rate by Age Group](plots/age_subscription_rate.png)
+
+---
+
+## Subscription Rate by Occupation
+
+![Subscription Rate by Occupation](plots/job_subscription_rate.png)
+
+---
+
+## Subscription Rate by Housing Loan Status
+
+![Subscription Rate by Housing Loan Status](plots/housing_subscription_rate.png)
+
+---
+
+## Account Balance by Subscription Outcome
+
+![Account Balance by Subscription Outcome](plots/balanc_subscription_boxplot.png)
+
+---
+
+# Skills Demonstrated
+
+## Python & Data Analysis
+
+- Data loading and inspection with pandas
+- Data validation and preparation
+- Exploratory data analysis
+- Grouped aggregations
+- Cross-tabulation
+- Customer segmentation
+- Comparative analysis
+- Analysis of financial and campaign variables
+
+## Data Visualization
+
+- Matplotlib
+- Distribution visualizations
+- Segment comparisons
+- Subscription-rate visualizations
+- Business-focused chart interpretation
+
+## Analytical Thinking
+
+- Translating business questions into analytical questions
+- Comparing customer segments
+- Evaluating mean and median for financial variables
+- Identifying target class imbalance
+- Examining multiple variables together
+- Distinguishing descriptive relationships from causal conclusions
+- Translating analytical results into business context
+
+## Version Control
+
+- Git
+- GitHub
+- Incremental project development
+- Organized repository structure
+- Documentation of analytical progress
+
+---
+
 # Project Structure
 
-```
-bank-marketing-analysis/
+```text
+bank-marketing-analytics/
 
-│── README.md
-│── BUSINESS_QUESTIONS.md
-│── requirements.txt
-
+├── README.md
+├── requirements.txt
+│
 ├── data/
-│   └── bank.csv
-
+│   ├── raw/
+│   └── processed/
+│
+├── docs/
+│   ├── BUSINESS_QUESTIONS.md
+│   └── ROADMAP.md
+│
 ├── notebooks/
-│   ├── 01_exploratory_data_analysis.ipynb
-│   ├── 02_comparative_analysis.ipynb
-│   ├── 03_sql_analysis.ipynb
-│   └── 04_predictive_model.ipynb
-
+│   ├── 01_data_exploration.ipynb
+│   └── 02_comparative_analysis.ipynb
+│
 ├── plots/
 │   ├── age_distribution.png
 │   ├── job_distribution.png
@@ -187,54 +316,12 @@ bank-marketing-analysis/
 │   ├── housing_distribution.png
 │   ├── personal_loan_distribution.png
 │   ├── contact_method_distribution.png
-│   └── month_distribution.png
-```
-
----
-
-# Future Work
-
-The remaining phases of this project include:
-
-### Comparative Exploratory Data Analysis
-
-- Customer characteristics vs. subscription rate
-- Marketing variables vs. subscription rate
-- Conversion rate analysis
-
-### SQL Analysis
-
-- Business-focused SQL queries
-- Window functions
-- Common Table Expressions (CTEs)
-- Views
-- Ranking analyses
-
-### Statistical Analysis
-
-- Hypothesis testing
-- Chi-square tests
-- Correlation analysis
-- Confidence intervals
-
-### Predictive Modeling
-
-- Logistic Regression
-- Decision Tree
-- Random Forest
-- Model evaluation
-- Feature importance analysis
-
-### Business Recommendations
-
-The project will conclude with actionable recommendations describing how the bank can improve future marketing campaigns by targeting customers more effectively.
-
----
-
-## Author
-
-**Abigail Calvert**
-
-Data Science Student | Arizona State University
-
-This project is part of my data science portfolio and demonstrates the complete analytics workflow from data exploration to predictive modeling.
+│   ├── month_distribution.png
+│   ├── age_subscription_rate.png
+│   ├── job_subscription_rate.png
+│   ├── housing_subscription_rate.png
+│   └── balanc_subscription_boxplot.png
+│
+├── sql/
+├── models/
+└── powerbi/
