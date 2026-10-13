@@ -6,7 +6,9 @@ Banks often use direct marketing campaigns to promote financial products such as
 
 The objective of this project is to analyze customer demographics, financial characteristics, and previous marketing interactions to identify patterns associated with successful term deposit subscriptions.
 
-The project follows an end-to-end analytics workflow that progresses from exploratory analysis and customer segmentation to SQL analysis, statistical analysis, predictive modeling, and business recommendations.
+The project follows an end-to-end analytics workflow that progresses from exploratory data analysis and customer segmentation to SQL business analysis, statistical analysis, predictive modeling, data visualization, and business recommendations.
+
+The ultimate goal is to combine descriptive analytics and predictive modeling to support more informed marketing decisions within financial services.
 
 ---
 
@@ -16,8 +18,10 @@ This project uses the **Bank Marketing Dataset** from the UCI Machine Learning R
 
 The analysis uses the `bank-full.csv` dataset, containing **45,211 customer records** and information on customer demographics, financial characteristics, campaign interactions, previous campaign outcomes, and whether the customer subscribed to a term deposit.
 
-**Source:** UCI Machine Learning Repository — Bank Marketing Dataset  
-**Creators:** Sérgio Moro, Paulo Rita, and Paulo Cortez  
+**Source:** [UCI Machine Learning Repository — Bank Marketing Dataset](https://archive.ics.uci.edu/dataset/222/bank+marketing)
+
+**Creators:** Sérgio Moro, Paulo Rita, and Paulo Cortez
+
 **DOI:** 10.24432/C5K306
 
 ---
@@ -26,13 +30,15 @@ The analysis uses the `bank-full.csv` dataset, containing **45,211 customer reco
 
 **How can the bank improve the efficiency of its direct marketing campaigns by identifying customer and campaign characteristics associated with higher term deposit subscription rates?**
 
-The analysis focuses on translating customer and campaign data into insights that could support more informed customer targeting decisions.
+The project investigates how customer characteristics, financial obligations, and marketing activity relate to subscription outcomes.
+
+The analysis focuses on translating historical campaign data into insights that could support customer segmentation, marketing strategy, and future predictive modeling.
 
 ---
 
 ## Dataset
 
-The dataset contains more than 45,000 customer records and includes variables describing:
+The dataset contains 45,211 customer records and includes variables describing:
 
 - Customer demographics
 - Employment and education
@@ -45,6 +51,8 @@ The dataset contains more than 45,000 customer records and includes variables de
 - Previous marketing campaign outcomes
 - Term deposit subscription status (`y`) as the target variable
 
+The target variable identifies whether a customer subscribed to a term deposit, with values of `yes` or `no`.
+
 ---
 
 ## Tools & Technologies
@@ -56,14 +64,18 @@ The dataset contains more than 45,000 customer records and includes variables de
 - NumPy
 - Matplotlib
 - Jupyter Notebook
+- SQL
+- SQLite
+- Visual Studio Code
 - Git
 - GitHub
 
 ### Planned for Later Phases
 
-- SQL
 - Statistical Analysis
 - Scikit-learn
+- Logistic Regression
+- Classification Model Evaluation
 - Power BI
 
 ---
@@ -81,6 +93,8 @@ Initial preparation and validation included:
 - Validated important variables
 - Reviewed the target variable
 - Prepared the dataset for exploratory analysis
+
+The dataset contains **45,211 records**, providing a substantial sample for customer segmentation and predictive analysis.
 
 ---
 
@@ -137,6 +151,67 @@ These findings are **descriptive rather than causal**. They identify patterns an
 
 ---
 
+## Phase 4 — SQL Business Analysis ✅
+
+SQL was used to extend the Python analysis and investigate customer characteristics, financial obligations, and marketing campaign performance.
+
+The analysis was performed using **SQLite** and the `bank_marketing` table containing 45,211 records.
+
+### SQL Analysis Completed
+
+**1. Data Validation and Campaign Performance**
+
+- Verified the total number of customer records
+- Calculated the number of successful and unsuccessful subscriptions
+- Calculated the overall term deposit subscription rate
+
+**2. Customer Segmentation**
+
+- Compared subscription rates across occupations
+- Ranked occupational groups by subscription performance
+- Examined differences in subscription behavior across financial characteristics
+
+**3. Financial Characteristics**
+
+- Compared subscription rates for customers with and without housing loans
+- Compared subscription rates for customers with and without personal loans
+- Examined account balances across occupational groups
+- Created balance-based customer segments to compare subscription behavior
+
+**4. Marketing Campaign Performance**
+
+- Compared subscription rates across contact methods
+- Analyzed average campaign contact frequency
+- Grouped customers by the number of campaign contacts
+- Compared subscription rates across contact-frequency categories
+
+**5. Multi-Variable Analysis**
+
+- Compared occupation and housing loan status together
+- Examined subscription rates within customer subgroups
+- Used conditional aggregation to calculate multiple performance metrics in a single query
+
+### SQL Techniques Demonstrated
+
+- `SELECT` and `WHERE`
+- `COUNT()`, `SUM()`, and `AVG()`
+- `ROUND()`
+- `CASE WHEN`
+- `GROUP BY`
+- `ORDER BY`
+- Conditional aggregation
+- Common Table Expressions (`WITH`)
+- Window functions (`RANK() OVER`)
+- Customer segmentation
+- Calculated business metrics
+- Multi-variable comparisons
+
+These queries demonstrate how SQL can translate business questions into measurable customer and campaign performance indicators.
+
+**SQL Analysis File:** [Customer and Campaign SQL Analysis](sql/01_customer_campaign_analysis.sql)
+
+---
+
 ## Current Progress
 
 | Phase | Status |
@@ -144,7 +219,7 @@ These findings are **descriptive rather than causal**. They identify patterns an
 | Data Preparation | ✅ Complete |
 | Exploratory Data Analysis | ✅ Complete |
 | Comparative Customer Analysis | ✅ Complete |
-| SQL Business Analysis | 🚧 Next |
+| SQL Business Analysis | ✅ Complete |
 | Statistical Analysis | ⏳ Planned |
 | Predictive Modeling | ⏳ Planned |
 | Model Evaluation | ⏳ Planned |
@@ -153,40 +228,156 @@ These findings are **descriptive rather than causal**. They identify patterns an
 
 ---
 
-# Key Exploratory Findings
+# Key Analytical Findings
 
-Initial exploratory analysis provides important context about the bank's customer population and campaign activity.
+## 1. Overall Campaign Performance
 
-Some observations include:
+The dataset contains **45,211 customer records**.
 
-- Most customers do not have a history of credit default.
-- Housing loan ownership is relatively balanced across the customer base.
-- Personal loans are less common among customers.
-- Cellular phones are the primary contact method used during marketing campaigns.
-- Marketing activity was heavily concentrated during certain months, particularly May.
-- Term deposit subscriptions represent a minority of campaign outcomes, making response rate an important metric for later analysis.
+Of these:
 
-These observations describe the historical dataset and provide context for deeper comparative and predictive analysis.
+- **5,289 customers** subscribed to a term deposit.
+- **39,922 customers** did not subscribe.
+- The overall subscription rate was **11.70%**.
+
+The relatively low positive response rate highlights the importance of understanding customer characteristics associated with successful subscriptions.
+
+It also introduces a class imbalance consideration for future predictive modeling.
+
+## 2. Housing Loan Status
+
+Customers without housing loans had a higher historical term deposit subscription rate than customers with housing loans.
+
+| Housing Loan Status | Customers | Subscription Rate |
+|---|---:|---:|
+| No | 20,081 | 16.70% |
+| Yes | 25,130 | 7.70% |
+
+This suggests that housing loan status is associated with differences in subscription behavior.
+
+However, additional analysis would be needed to determine whether this relationship persists after accounting for other customer characteristics.
+
+## 3. Personal Loan Status
+
+Customers without personal loans also demonstrated higher subscription rates.
+
+| Personal Loan Status | Customers | Subscription Rate |
+|---|---:|---:|
+| No | 37,967 | 12.66% |
+| Yes | 7,244 | 6.68% |
+
+These results suggest that existing financial obligations may be useful variables for understanding customer subscription behavior.
+
+## 4. Contact Method Performance
+
+Historical subscription rates differed across marketing contact methods.
+
+| Contact Method | Customers | Subscription Rate |
+|---|---:|---:|
+| Cellular | 29,285 | 14.92% |
+| Telephone | 2,906 | 13.42% |
+| Unknown | 13,020 | 4.07% |
+
+Cellular contacts were associated with the highest observed subscription rate.
+
+The unknown category had a substantially lower rate, although this does not establish that the contact method itself caused the difference.
+
+## 5. Campaign Contact Frequency
+
+Subscription rates also varied depending on how many times customers were contacted during a campaign.
+
+| Number of Contacts | Customers | Subscription Rate |
+|---|---:|---:|
+| 1 contact | 17,544 | 14.60% |
+| 2 contacts | 12,505 | 11.20% |
+| 3 contacts | 5,521 | 11.19% |
+| 4+ contacts | 9,641 | 7.35% |
+
+Customers contacted once had the highest observed subscription rate.
+
+Customers contacted four or more times had the lowest rate.
+
+These results suggest that contact frequency is an important variable to investigate when evaluating campaign efficiency.
+
+However, customers may receive additional contacts because they have not yet subscribed, so these results should not be interpreted as evidence that additional contact attempts cause lower subscription rates.
+
+## 6. Customer Balance Segmentation
+
+Customers were grouped into balance categories to investigate whether account balance levels were associated with subscription behavior.
+
+| Balance Segment | Customers | Subscription Rate |
+|---|---:|---:|
+| High | 2,845 | 15.50% |
+| Medium | 11,786 | 15.33% |
+| Low | 23,300 | 10.90% |
+| Negative/Zero | 7,280 | 6.90% |
+
+Customers in the high and medium balance segments had higher observed subscription rates than customers in the low or negative/zero balance segments.
+
+This suggests that account balance may be useful for customer segmentation and future predictive modeling.
+
+## 7. Occupational Differences
+
+Subscription rates also varied across occupational categories.
+
+Examples include:
+
+- Students: **28.68%**
+- Retired customers: **22.79%**
+- Management: **13.76%**
+- Technicians: **11.06%**
+- Blue-collar workers: **7.27%**
+
+These results show that subscription behavior differs across customer groups and reinforce the value of customer segmentation.
+
+Occupational categories also vary substantially in size, which should be considered when interpreting their performance.
 
 ---
 
-# Comparative Analysis
+# Analytical Interpretation
 
-The comparative phase focuses on how subscription behavior differs across customer and campaign characteristics.
+The exploratory, comparative, and SQL analyses suggest that customer financial characteristics, occupational categories, and marketing campaign interactions are associated with differences in term deposit subscription rates.
 
-Examples of questions investigated include:
+Several variables appear promising for further investigation, including:
 
-- Which occupations have higher or lower historical subscription rates?
-- How does subscription behavior vary across age groups?
-- Do subscribers and non-subscribers differ in their account balances?
-- How does housing loan status relate to subscription rates?
-- How does personal loan status relate to subscription rates?
-- How do different contact methods compare?
-- How does campaign contact frequency differ between outcomes?
-- How does previous campaign performance relate to future subscription behavior?
-- What additional patterns appear when multiple customer characteristics are considered together?
+- Housing loan status
+- Personal loan status
+- Account balance
+- Occupation
+- Contact method
+- Campaign contact frequency
 
-This analysis creates a foundation for the SQL and predictive modeling stages of the project.
+These relationships provide a foundation for statistical analysis and predictive modeling.
+
+**Important limitation:** All findings are based on historical observational data. The analysis identifies associations, not causal effects. Marketing decisions should not be based solely on these descriptive comparisons without further validation.
+
+---
+
+# Next Phase — Statistical Analysis and Predictive Modeling
+
+The next stage of the project will move beyond descriptive analysis to evaluate relationships statistically and build predictive classification models.
+
+### Planned Statistical Analysis
+
+- Examine relationships between selected customer characteristics and subscription outcomes
+- Apply appropriate statistical tests
+- Interpret statistical significance alongside practical business relevance
+
+### Planned Predictive Modeling
+
+- Prepare features for machine learning
+- Encode categorical variables
+- Split data into training and testing sets
+- Build a baseline classification model
+- Train a logistic regression model
+- Compare model performance
+- Evaluate precision, recall, F1-score, and ROC-AUC
+- Interpret confusion matrices
+- Identify important predictors of subscription outcomes
+
+Special attention will be given to class imbalance because successful subscriptions represent a minority of the dataset.
+
+The modeling process will also consider information availability and potential data leakage to ensure that predictions reflect realistic marketing decisions.
 
 ---
 
@@ -212,7 +403,7 @@ This analysis creates a foundation for the SQL and predictive modeling stages of
 
 ## Contact Method Distribution
 
-![Contact Method](plots/contact_method_distribution.png)
+![Contact Method Distribution](plots/contact_method_distribution.png)
 
 ---
 
@@ -242,7 +433,7 @@ This analysis creates a foundation for the SQL and predictive modeling stages of
 
 ## Account Balance by Subscription Outcome
 
-![Account Balance by Subscription Outcome](plots/balanc_subscription_boxplot.png)
+![Account Balance by Subscription Outcome](plots/balance_subscription_boxplot.png)
 
 ---
 
@@ -259,6 +450,18 @@ This analysis creates a foundation for the SQL and predictive modeling stages of
 - Comparative analysis
 - Analysis of financial and campaign variables
 
+## SQL & Database Analysis
+
+- Querying relational data with SQLite
+- Aggregation and grouping
+- Conditional aggregation
+- Creating calculated performance metrics
+- Common Table Expressions
+- Window functions
+- Customer ranking
+- Multi-variable segmentation
+- Translating business questions into SQL queries
+
 ## Data Visualization
 
 - Matplotlib
@@ -269,21 +472,23 @@ This analysis creates a foundation for the SQL and predictive modeling stages of
 
 ## Analytical Thinking
 
-- Translating business questions into analytical questions
+- Translating business problems into analytical questions
 - Comparing customer segments
 - Evaluating mean and median for financial variables
 - Identifying target class imbalance
 - Examining multiple variables together
+- Interpreting calculated performance metrics
 - Distinguishing descriptive relationships from causal conclusions
 - Translating analytical results into business context
 
-## Version Control
+## Version Control & Documentation
 
 - Git
 - GitHub
 - Incremental project development
 - Organized repository structure
-- Documentation of analytical progress
+- SQL script documentation
+- Documentation of analytical findings and progress
 
 ---
 
@@ -291,9 +496,9 @@ This analysis creates a foundation for the SQL and predictive modeling stages of
 
 ```text
 bank-marketing-analytics/
-
 ├── README.md
 ├── requirements.txt
+├── .gitignore
 │
 ├── data/
 │   ├── raw/
@@ -320,8 +525,30 @@ bank-marketing-analytics/
 │   ├── age_subscription_rate.png
 │   ├── job_subscription_rate.png
 │   ├── housing_subscription_rate.png
-│   └── balanc_subscription_boxplot.png
+│   └── balance_subscription_boxplot.png
 │
 ├── sql/
+│   └── 01_customer_campaign_analysis.sql
+│
 ├── models/
 └── powerbi/
+```
+
+*The repository will continue to expand as statistical analysis, predictive modeling, and dashboard development are completed.*
+
+---
+
+# Project Goals
+
+By the completion of this project, the objective is to demonstrate the ability to:
+
+1. Work with a real-world financial services dataset.
+2. Prepare, validate, and analyze structured customer data.
+3. Use Python and SQL to answer business questions.
+4. Identify meaningful customer segments and campaign performance patterns.
+5. Apply statistical analysis and predictive classification techniques.
+6. Evaluate machine learning models using appropriate performance metrics.
+7. Communicate findings through clear visualizations and an interactive dashboard.
+8. Translate analytical results into actionable business recommendations.
+
+The completed project is intended to demonstrate an end-to-end analytics workflow applicable to financial services, customer analytics, and data-driven business decision-making.
