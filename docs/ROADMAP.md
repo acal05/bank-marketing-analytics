@@ -1,272 +1,183 @@
-# Bank Marketing Analytics Roadmap
+# Bank Marketing Analytics & Response Prediction
+## Project Roadmap
 
-## Project Goal
+### Project Objective
 
-Develop an end-to-end analytics solution that identifies the customer characteristics and marketing strategies most likely to lead to a successful term deposit subscription. The project will combine SQL, Python, statistical analysis, machine learning, and Power BI to produce actionable business recommendations.
+Analyze historical bank marketing campaign data to understand customer subscription behavior, identify meaningful customer segments, evaluate predictive models, and communicate findings through an interactive Tableau dashboard.
 
----
-
-
-# Phase 1 – Project Planning
-
-## Objectives
-
-- [x] Create project structure
-- [x] Organize folders
-- [x] Download dataset
-- [x] Configure virtual environment
-- [ ] Define business objectives
-- [ ] Define success metrics
-
-Deliverables
-
-- Organized project structure
-- Development environment
-- Project roadmap
-
-### Success Metrics
-
-The project will be considered successful if it:
-
-- Identifies customer and campaign factors associated with subscription
-- Produces statistically supported findings
-- Develops a model that improves targeting over the campaign baseline
-- Evaluates performance using precision, recall, ROC-AUC, and precision-recall metrics
-- Estimates the operational impact of targeting only high-probability customers
-- Communicates findings through SQL scripts, Python notebooks, a Power BI dashboard, and business recommendations
+The project demonstrates an end to end analytics workflow relevant to banking, financial services, customer analytics, and marketing performance.
 
 ---
 
+## Phase 1: Data Preparation
 
-# Phase 2 – SQL Business Analysis
+**Status: Complete**
 
-Objective
+- Imported the UCI Bank Marketing dataset using Python and pandas.
+- Inspected 45,211 records and 17 variables.
+- Reviewed data types, missing values, and unknown categories.
+- Validated the target variable and subscription outcomes.
+- Prepared data for exploratory and comparative analysis.
 
-Answer key business questions using SQL before performing analysis in Python.
+**Deliverable:** `notebooks/01_data_exploration.ipynb`
 
-Skills Demonstrated
+## Phase 2: Exploratory Data Analysis
 
-- SQL
-- Aggregation
-- GROUP BY
-- CASE statements
-- Window Functions
-- Common Table Expressions (CTEs)
-- Business reporting
+**Status: Complete**
 
-Deliverables
+- Examined customer age, occupation, education, marital status, and financial characteristics.
+- Analyzed account balances, housing loans, and personal loans.
+- Explored contact methods and marketing campaign activity.
+- Created visualizations to understand distributions and identify patterns.
+- Identified the imbalance between successful and unsuccessful subscriptions.
 
-- SQL scripts
-- Business queries
-- Analytical summaries
+**Deliverable:** `notebooks/01_data_exploration.ipynb`
 
-Questions to Answer
+## Phase 3: Comparative Customer Analysis
 
-- Which customer segments subscribe most often?
-- Which occupations have the highest conversion rate?
-- Does marital status affect subscriptions?
-- Which months perform best?
-- Which contact methods are most successful?
-- Which previous campaign outcomes predict success?
+**Status: Complete**
 
-Files
+- Calculated overall and segment specific subscription rates.
+- Compared subscription outcomes across occupations and financial characteristics.
+- Examined housing loans, personal loans, and account balance segments.
+- Compared marketing contact methods and campaign contact frequency.
+- Interpreted differences in historical customer response rates.
 
-sql/
-├── 01_database_setup.sql
-├── 02_business_questions.sql
-├── 03_customer_segmentation.sql
-└── 04_campaign_performance.sql
+**Deliverable:** `notebooks/02_comparative_analysis.ipynb`
 
-Status
+## Phase 4: SQL Business Analysis
 
-⬜ Not Started
+**Status: Complete**
 
----
+- Used SQLite to analyze customer and campaign data.
+- Validated customer counts and subscription outcomes.
+- Applied aggregations, conditional calculations, and Common Table Expressions.
+- Analyzed customer segments and marketing performance.
+- Used SQL to translate business questions into measurable results.
 
-# Phase 3 – Exploratory Data Analysis
+**Deliverable:** `sql/01_customer_campaign_analysis.sql`
 
-Objective
+## Phase 5: Statistical Analysis
 
-Understand customer demographics, campaign performance, and behavioral patterns.
+**Status: Complete**
 
-Skills Demonstrated
+- Investigated relationships between customer characteristics and subscription outcomes.
+- Applied statistical tests to selected categorical and numerical variables.
+- Calculated and interpreted confidence intervals.
+- Compared account balance distributions.
+- Distinguished statistical significance from practical business relevance.
+- Documented limitations of observational data.
 
-- Pandas
-- Data Cleaning
-- Feature Engineering
-- Data Visualization
+**Deliverable:** `notebooks/03_statistical_analysis.ipynb`
 
-Deliverables
+## Phase 6: Predictive Modeling
 
-- Professional notebook
-- Publication-quality figures
-- Initial insights
+**Status: Complete**
 
-Notebook
+- Defined term deposit subscription as a binary classification problem.
+- Selected eight customer characteristics available before marketing contact.
+- Excluded call duration and other information unsuitable for the intended prediction timing.
+- Prepared categorical and numerical features for modeling.
+- Split the data into training and testing sets.
+- Trained three classification models:
+  - Logistic Regression
+  - Balanced Logistic Regression
+  - Random Forest
+- Evaluated model performance using classification metrics.
+- Examined feature importance and model limitations.
 
-notebooks/
-└── 01_data_exploration.ipynb
+**Selected Random Forest Results:**
 
-Status
+| Metric | Result |
+|---|---:|
+| F1 Score | 0.330 |
+| ROC AUC | 0.688 |
+| Average Precision | 0.316 |
 
-🟨 In Progress
+These results represent a predictive baseline rather than a production ready marketing model.
 
----
+**Deliverable:** `notebooks/04_predictive_modeling.ipynb`
 
-# Phase 4 – Statistical Analysis
+## Phase 7: Tableau Dashboard
 
-Objective
+**Status: Complete**
 
-Determine whether observed relationships are statistically significant.
+Developed an interactive Bank Marketing Performance Dashboard using Tableau.
 
-Skills Demonstrated
+The dashboard includes:
 
-- Hypothesis Testing
-- Chi-Square Tests
-- Correlation Analysis
-- Confidence Intervals
+- Total Customers: 45,211
+- Successful Subscriptions: 5,289
+- Subscription Rate: 11.70%
+- Subscription Rate by Job
+- Subscription Rate by Campaign Contacts
+- Subscription Rate by Housing Loans
+- Interactive filtering to explore customer segments
 
-Questions
+The dashboard provides a visual summary of historical marketing performance and supports exploration of differences between customer groups.
 
-- Is education associated with subscriptions?
-- Is age associated with campaign success?
-- Which variables are statistically significant?
+**Deliverables:**
 
-Status
+- `tableau/bank-marketing-analysis.twbx`
+- `tableau/bank_marketing_dashboard.png`
 
-⬜ Not Started
+## Phase 8: Documentation and Portfolio Presentation
 
----
+**Status: Final review**
 
-# Phase 5 – Feature Engineering
+- Documented project objectives and business questions.
+- Organized notebooks, SQL analysis, plots, and Tableau files.
+- Summarized findings and modeling results.
+- Updated the README and project roadmap.
+- Prepared the repository for GitHub portfolio presentation.
 
-Objective
+**Deliverables:**
 
-Create variables that improve predictive performance.
-
-Examples
-
-- Age Groups
-- Balance Quartiles
-- Campaign Efficiency
-- Customer Risk Category
-- Previous Contact Success
-
-Status
-
-⬜ Not Started
-
----
-
-# Phase 6 – Machine Learning
-
-Objective
-
-Predict which customers are most likely to subscribe.
-
-Models
-
-- Logistic Regression
-- Decision Tree
-- Random Forest
-- XGBoost (optional)
-
-Evaluation
-
-- Accuracy
-- Precision
-- Recall
-- F1 Score
-- ROC-AUC
-- Confusion Matrix
-
-Status
-
-⬜ Not Started
+- `README.md`
+- `docs/ROADMAP.md`
+- `docs/BUSINESS_QUESTIONS.md`
 
 ---
 
-# Phase 7 – Model Interpretation
+## Project Completion Summary
 
-Objective
+| Phase | Status |
+|---|---|
+| Data Preparation | Complete |
+| Exploratory Data Analysis | Complete |
+| Comparative Customer Analysis | Complete |
+| SQL Business Analysis | Complete |
+| Statistical Analysis | Complete |
+| Predictive Modeling | Complete |
+| Model Evaluation | Complete |
+| Tableau Dashboard | Complete |
+| Documentation | Final review |
 
-Explain why the model makes its predictions.
+## Potential Future Improvements
 
-Skills
+The core portfolio project is complete. Potential extensions include:
 
-- Feature Importance
-- SHAP Values
-- Partial Dependence
+1. Evaluating additional classification algorithms and tuning model hyperparameters.
+2. Investigating probability calibration and decision thresholds.
+3. Comparing model performance across customer segments.
+4. Incorporating marketing contact costs and expected financial value into targeting decisions.
+5. Evaluating performance on more recent campaign data.
+6. Improving dashboard usability and adding further business metrics where appropriate.
 
-Business Questions
-
-- Which factors matter most?
-- Which customers should be targeted?
-- Which variables have little value?
-
-Status
-
-⬜ Not Started
-
----
-
-# Phase 8 – Power BI Dashboard
-
-Objective
-
-Create an executive dashboard suitable for stakeholders.
-
-Dashboard Pages
-
-- Executive Summary
-- Customer Demographics
-- Campaign Performance
-- Customer Segments
-- Model Predictions
-- Business Recommendations
-
-Status
-
-⬜ Not Started
+These are optional extensions rather than unfinished requirements.
 
 ---
 
-# Phase 9 – Business Recommendations
+## Project Limitations
 
-Objective
+The dataset represents historical marketing campaign observations from a Portuguese banking institution.
 
-Convert technical findings into actionable recommendations.
+Observed differences between customer groups do not establish causal relationships.
 
-Examples
+Predictive model results are based on historical data and should not be interpreted as guaranteed future performance.
 
-- Improve campaign timing
-- Target high-performing customer segments
-- Reduce unnecessary contacts
-- Optimize marketing spend
+The dashboard is intended for descriptive analysis. The predictive modeling notebook addresses a separate question: whether subscription outcomes can be estimated using information available before marketing contact.
 
-Deliverables
+## Final Project Goal
 
-- Executive summary
-- Written recommendations
-- Final report
-
-Status
-
-⬜ Not Started
-
----
-
-# Phase 10 – Portfolio Completion
-
-Deliverables
-
-- GitHub Repository
-- Professional README
-- Power BI Dashboard
-- SQL Scripts
-- Jupyter Notebook
-- Presentation Slides
-
-Status
-
-⬜ Not Started
+Demonstrate the ability to combine Python, SQL, statistical analysis, machine learning, and Tableau into a coherent analytics project that supports evidence based business decision making in financial services.
